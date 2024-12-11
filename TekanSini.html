@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Happy Birthday Sayangku</title>
+    <style>
+        body {
+            margin: 0;
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+            color: #333;
+            overflow-x: hidden;
+        }
+        .container {
+            text-align: center;
+            padding: 50px;
+            z-index: 10;
+            position: relative; /* Ensure that content is above floating elements */
+        }
+        .title {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #fff;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.2);
+        }
+        .message {
+            font-size: 1.5rem;
+            margin: 20px 0;
+            color: #fff;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.2);
+            line-height: 1.5;
+            max-width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .video-wrapper {
+            margin: 30px 0;
+        }
+        video {
+            width: 80%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+            margin-bottom: 20px;
+        }
+        .fireworks {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none; /* Allow interaction with elements below */
+            z-index: 1;
+        }
+        footer {
+            margin-top: 50px;
+            font-size: 1rem;
+            color: #fff;
+        }
+        .floating-hearts {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 2; /* Ensure this is above fireworks, but below the content */
+            pointer-events: none; /* Allow interaction with elements below */
+        }
+        audio, video {
+            z-index: 5; /* Ensure video/audio controls are interactive */
+        }
+    </style>
+</head>
+<body>
+    <canvas class="fireworks"></canvas>
+    <div class="floating-hearts"></div>
+
+    <div class="container">
+        <h1 class="title">Hai Cayangggg.... <3</h1>
+        <p class="message">Scroll Lah Cikit...</p>
+
+        <div class="video-wrapper">
+            <video controls>
+                <source src="c/Vid1.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+            <video controls>
+                <source src="c/Vid2.mp4" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+        <p>Pastikan Music Bawah ni di Play sebelum baca hehehe</p>
+        <!-- New audio element that users can play -->
+        <audio id="birthday-audio" autoplay controls>
+            <source src="c/audio1.mp3" type="audio/mp3">
+            Your browser does not support the audio tag.
+        </audio>
+
+
+        <p class="message" style="margin-top: 20px;">Happy Birthday cayang, Nur Fathiah Binti Patah Abidin! ❤️ Semoga cayang terus jadi wanita yang solehah, dimurahkan rezeki, dipanjangkan umur, dan sentiasa bahagia. Umur 22 ni memang banyak cabaran, tapi Baby yakin cayang pasti boleh hadapinya, Ujian dapat macam-macam jenis kawan, pastu tadi midtest cayang kena retake semula huhuhuhu, takpe cayang, setiap ujian yang kita dapat buat kita jadi makin kuat. Walaupun kita jarang jumpa, tapi jangan pernah rasa Baby jauh, sebab cayang tetap ada di hati Baby oteyhhhh, shentiashaaa.</p>
+        
+        <p class="message">Baby juga nak minta maaf kalau kadang-kadang tak perasan dan terbuat hati cayang terasa. Tak pernah ada niat pun, semuanya khilaf. Baby akan cuba lebih berhati-hati dan jadi yang lebih baik untuk cayang. Terima kasih sebab selalu ada untuk Baby, walaupun jauh(sikit je jauh), cayang tetap jadi orang yang penting dalam hidup Baby.
+        
+        Selamat hari lahir, cayang! Baby doakan kita akan berjaya capai semua impian. Baby sayang cayang sangat-sangat. Goodluck in Degree life & Please be Always Happy Tau <3 🥹❤️
+        
+        - UrLurve  ❤️</p>
+
+        <footer>Designed with ❤️ by your one and only.</footer>
+    </div>
+
+    <script>
+        // Fireworks animation
+        const canvas = document.querySelector('.fireworks');
+        const ctx = canvas.getContext('2d');
+        canvas.width = window.innerWidth;
+        canvas.height = window.innerHeight;
+
+        function random(min, max) {
+            return Math.random() * (max - min) + min;
+        }
+
+        class Firework {
+            constructor(x, y, color) {
+                this.x = x;
+                this.y = y;
+                this.color = color;
+                this.radius = random(2, 5);
+                this.vx = random(-2, 2);
+                this.vy = random(-5, -2);
+                this.alpha = 1;
+            }
+            update() {
+                this.x += this.vx;
+                this.y += this.vy;
+                this.alpha -= 0.02;
+            }
+            draw() {
+                ctx.globalAlpha = this.alpha;
+                ctx.beginPath();
+                ctx.arc(this.x, this.y, this.radius, 0, Math.PI * 2);
+                ctx.fillStyle = this.color;
+                ctx.fill();
+            }
+        }
+
+        let fireworks = [];
+        setInterval(() => {
+            for (let i = 0; i < 10; i++) {
+                fireworks.push(new Firework(random(0, canvas.width), canvas.height, `hsl(${random(0, 360)}, 100%, 50%)`));
+            }
+        }, 200);
+
+        function animate() {
+            ctx.clearRect(0, 0, canvas.width, canvas.height);
+            fireworks = fireworks.filter(firework => firework.alpha > 0);
+            fireworks.forEach(firework => {
+                firework.update();
+                firework.draw();
+            });
+            requestAnimationFrame(animate);
+        }
+        animate();
+
+        // Floating hearts
+        const heartsContainer = document.querySelector('.floating-hearts');
+        setInterval(() => {
+            const heart = document.createElement('div');
+            heart.className = 'heart';
+            heart.style.left = `${random(0, 100)}vw`;
+            heart.style.animationDuration = `${random(5, 10)}s`;
+            heartsContainer.appendChild(heart);
+            setTimeout(() => heart.remove(), 10000);
+        }, 300);
+    </script>
+</body>
+</html>
